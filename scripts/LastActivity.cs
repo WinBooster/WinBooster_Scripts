@@ -9,23 +9,18 @@ using Microsoft.Win32;
 
 public class Script : IScript
 {
-	[DllImport("kernel32.dll", SetLastError = true)]
-	[return: MarshalAs(UnmanagedType.Bool)]
-	public static extern bool AllocConsole();
-
-	public override string GetScriptName() {
-		return "LastActivity";
+	public override string GetScriptName() 
+	{
+		return "LastActivity Cleaner";
 	}
-    public override void OnEnabled()
-    {
-        //AllocConsole();
-    }
+    
 	public override void OnCleanerInit(CleanerDataBase dataBase)
     {
 		CleanerCategory lastactiv = new CleanerCategory("LastActivity");
 		lastactiv.custom.Add(new LastActivityCleaner());
         dataBase.cleaners.Add(lastactiv);
     }
+	
 	public class SafeNames
 	{
 		public bool IsSafeName(string text)
@@ -513,6 +508,11 @@ public class Script : IScript
                     CurrentUserSoftware.DeleteSubKeyTree("Bags");
                 }
                 catch { }
+				try
+                {
+                    CurrentUserSoftware.DeleteSubKeyTree("MuiCache");
+                }
+                catch { }
                 CurrentUserSoftware.Close();
             }
             catch { }
@@ -540,6 +540,27 @@ public class Script : IScript
             }
             catch { }
             #endregion
+			#region WinRar
+			try
+            {
+                var CurrentUserSoftware = Registry.CurrentUser.OpenSubKey("SOFTWARE\\WinRAR", true);
+                try
+                {
+                    CurrentUserSoftware.DeleteSubKeyTree("ArcHistory");
+                }
+                catch { }
+                CurrentUserSoftware.Close();
+				 var CurrentUserSoftware2 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\WinRAR\\DialogEditHistory", true);
+                try
+                {
+                    CurrentUserSoftware2.DeleteSubKeyTree("ArcHistory");
+                }
+                catch { }
+                CurrentUserSoftware2.Close();
+				
+            }
+            catch { }
+			#endregion
 			return result;
 		}
 	}
