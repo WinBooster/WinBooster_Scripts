@@ -475,13 +475,13 @@ public class Script : IScript
                 {
                     var names3 = CurrentUserSoftware2.OpenSubKey(name, true);
                     var names4 = names3.GetValueNames();
+					var saves_names = new SafeNames();
                     foreach (var name2 in names4)
                     {
                         if (name2.StartsWith("\\Device\\Harddisk"))
                         {
                             string name3 = name2.Substring(24);
                             string file_path = "C" + "\\" + name3;
-                            var saves_names = new SafeNames();
                             if (!saves_names.IsSafeName(file_path))
                             {
                                 result.bytes += name2.Length;
@@ -491,6 +491,18 @@ public class Script : IScript
                     }
                 }
                 CurrentUserSoftware2.Close();
+            }
+            catch { }
+			
+			try
+            {
+                var CurrentUserSoftware = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\TWinUI\\FilePicker\\LastVisitedPidlMRU", true);
+                try
+                {
+                    CurrentUserSoftware.DeleteValue("MRUListEx");
+                }
+                catch { }
+                CurrentUserSoftware.Close();
             }
             catch { }
             #endregion
@@ -550,14 +562,63 @@ public class Script : IScript
                 }
                 catch { }
                 CurrentUserSoftware.Close();
-				 var CurrentUserSoftware2 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\WinRAR\\DialogEditHistory", true);
+				var CurrentUserSoftware2 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\WinRAR\\DialogEditHistory\\ArcName", true);
                 try
                 {
-                    CurrentUserSoftware2.DeleteSubKeyTree("ArcHistory");
+ 
+                    foreach (var value2 in CurrentUserSoftware2.GetValueNames())
+                    {
+                        CurrentUserSoftware2.DeleteValue(value2);
+                    }
                 }
                 catch { }
                 CurrentUserSoftware2.Close();
 				
+				var CurrentUserSoftware3 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\WinRAR\\General", true);
+                try
+                {
+ 
+                     CurrentUserSoftware3.DeleteValue("LastFolder");
+                }
+                catch { }
+                CurrentUserSoftware3.Close();
+				
+            }
+            catch { }
+			#endregion
+			
+			#region Inno Setup
+			try
+            {
+				var CurrentUserSoftware2 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Jordan Russell\\Inno Setup\\ScriptFileHistoryNew", true);
+                try
+                {
+ 
+                    foreach (var value2 in CurrentUserSoftware2.GetValueNames())
+                    {
+                        CurrentUserSoftware2.DeleteValue(value2);
+                    }
+                }
+                catch { }
+                CurrentUserSoftware2.Close();
+            }
+            catch { }
+			#endregion
+			
+			#region ImageMagick
+			try
+            {
+				var CurrentUserSoftware2 = Registry.CurrentUser.OpenSubKey("SOFTWARE\\ImageMagick\\IMDisplay\\Recent File List", true);
+                try
+                {
+ 
+                    foreach (var value2 in CurrentUserSoftware2.GetValueNames())
+                    {
+                        CurrentUserSoftware2.DeleteValue(value2);
+                    }
+                }
+                catch { }
+                CurrentUserSoftware2.Close();
             }
             catch { }
 			#endregion
