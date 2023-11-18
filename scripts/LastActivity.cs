@@ -15,11 +15,11 @@ public class Script : IScript
 	}
     
 	public override void OnCleanerInit(CleanerDataBase dataBase)
-    {
+	{
 		CleanerCategory lastactiv = new CleanerCategory("LastActivity");
 		lastactiv.custom.Add(new LastActivityCleaner());
-        dataBase.cleaners.Add(lastactiv);
-    }
+		dataBase.cleaners.Add(lastactiv);
+	}
 	
 	public class SafeNames
 	{
