@@ -7,7 +7,7 @@
       "description": "Cleans traces of user activity",
       "winbooster_version": "2.0.8.8",
       "sha3": "117942a164be149d941e559c797f5eeae8148a8987a9db66b88bd913bbf574a3",
-      "url": "https://github.com/WinBooster/WinBooster_Scripts/raw/main/scripts/LastActivity.cs"
+      "url": "https://raw.githubusercontent.com/WinBooster/WinBooster_Scripts/main/scripts/LastActivity%20Cleaner.cs"
     },
     {
       "name": "Process Screen Protector",
