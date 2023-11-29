@@ -16,6 +16,9 @@ using System.Net;
 using HandyControl.Data;
 using HandyControl.Controls;
 using System.Runtime.InteropServices;
+using WinBoosterNative.injector;
+using System.Diagnostics;
+using WinBoosterNative.injector.Driver_Exploit;
 
 public class Script : IScript
 {
@@ -23,17 +26,10 @@ public class Script : IScript
 	{
 		return "Process Screen Protector";
 	}
-	
-	//[DllImport("kernel32.dll", SetLastError = true)]
-	//[return: MarshalAs(UnmanagedType.Bool)]
-	//static extern bool AllocConsole();
+
 		
     public override void OnEnabled() 
 	{
-	
-		
-		//AllocConsole();
-		
 		if (!Directory.Exists("C:\\Program Files\\WinBooster\\Libs"))
 		{
 			Directory.CreateDirectory("C:\\Program Files\\WinBooster\\Libs");
@@ -41,9 +37,6 @@ public class Script : IScript
 		
 		using (WebClient wc = new WebClient())
 		{
-			if (!File.Exists("C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x32.dll")) {
-				wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/main/libs/Process%20Screen%20Protector/CaptureDisabler%20x32.dll", "C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x32.dll");
-			}
 			if (!File.Exists("C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll")) {
 				wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/main/libs/Process%20Screen%20Protector/CaptureDisabler%20x64.dll", "C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll");
 			}
@@ -93,37 +86,36 @@ public class Script : IScript
 				
 				hide.Content = button_text;
 				
+				InjectionOptions options = new InjectionOptions();
+				
 				hide.Click += ((a, b) => {
 					string process_name = text.Text;
 					var processes = System.Diagnostics.Process.GetProcessesByName(process_name);
-					DllInjector injector = new DllInjector();
 					foreach (System.Diagnostics.Process process in processes) {
 						if (process.MainWindowHandle != IntPtr.Zero) {
+							bool x64 = process.Is64Bit();
 							try {
-								bool x64 = process.Is64Bit();
 								if (x64) {
-									bool success = injector.Inject(process.Id, "C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll");
-									if (success) {
-										GrowlInfo growl = new GrowlInfo
-										{
-											Message = "Success hide process x64: " + process_name,
-											ShowDateTime = true,
-										};
-										Growl.InfoGlobal(growl);
-									}
+									LoadLibraryInjection injector = new LoadLibraryInjection(process, ExecutionType.CreateThread, options);
+									
+									injector.InjectImage("C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll");
+									GrowlInfo growl = new GrowlInfo
+									{
+										Message = "Success hided process: " + process_name,
+									};
+									Growl.InfoGlobal(growl);
 								}
 								else {
-									bool success = injector.Inject(process.Id, "C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x32.dll");
-									if (success) {
-										GrowlInfo growl = new GrowlInfo
-										{
-											Message = "Success hide process x32: " + process_name,
-											ShowDateTime = true,
-										};
-										Growl.InfoGlobal(growl);
-									}
+									GrowlInfo growl = new GrowlInfo
+									{
+										Message = "x32 Processes not support",
+										ShowDateTime = true,
+										IconKey = "WarningGeometry",
+										IconBrushKey = "WarningBrush",
+										IsCustom = true
+									};
+									Growl.InfoGlobal(growl);
 								}
-								
 							}
 							catch { 
 								GrowlInfo growl = new GrowlInfo
