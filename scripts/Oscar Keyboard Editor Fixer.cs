@@ -53,11 +53,9 @@ public class Script : IScript
 					if (Directory.Exists(dir + @"\ScriptsMacros\Russian")) {
 						if (Directory.Exists(dir + @"\ScriptsMacros\Russian\StandardFile")) {
 							if (!File.Exists(dir + @"\ScriptsMacros\Russian\StandardFile\Макрос.amc")) {
-								Console.WriteLine("Avalable");
 								return true;
 							}
 							if (!File.Exists(dir + @"\ScriptsMacros\Russian\StandardFile\Макро.amc")) {
-								Console.WriteLine("Avalable");
 								return true;
 							}
 						}
@@ -83,7 +81,6 @@ public class Script : IScript
 				}
 				File.WriteAllBytes(dir + @"\ScriptsMacros\Russian\StandardFile\Макрос.amc", bytes);
 				File.WriteAllBytes(dir + @"\ScriptsMacros\Russian\StandardFile\Макро.amc", bytes);
-				Console.WriteLine("Downloaded");
 				return true;
 				
 				
