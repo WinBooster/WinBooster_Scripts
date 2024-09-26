@@ -48,7 +48,7 @@
       "winbooster_version": "2.0.9.4",
       "type": "Fixes",
       "sha3": "e899374f8b4610aeda301cff49c693bbb582c25a8ce74a2d1b82e6fb78ecabfc",
-      "url": "https://github.com/WinBooster/WinBooster_Scripts/blob/main/scripts/Oscar%20Keyboard%20Editor%20Fixer.cs"
+      "url": "https://raw.githubusercontent.com/WinBooster/WinBooster_Scripts/refs/heads/main/scripts/Oscar%20Keyboard%20Editor%20Fixer.cs"
     }
   ]
 }
