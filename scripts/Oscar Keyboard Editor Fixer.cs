@@ -21,6 +21,7 @@ using System.Diagnostics;
 using WinBoosterNative.database.error_fix;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.Text;
 
 public class Script : IScript
 {
@@ -69,18 +70,20 @@ public class Script : IScript
 		public bool TryFix()
 		{
 			if (Directory.Exists(dir)) {
-				Console.WriteLine("Fix");
-				var downloader = DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/blob/main/files/%D0%9C%D0%B0%D0%BA%D1%80%D0%BE%D1%81.amc");
-				downloader.Wait();
-				var bytes = downloader.Result;
-				if (!File.Exists(dir + @"\ScriptsMacros\Russian\StandardFile\Макрос.amc")) {
-					File.Create(dir + @"\ScriptsMacros\Russian\StandardFile\Макрос.amc").Close();
+				using (WebClient wc = new WebClient()) {
+					string file = wc.DownloadString("https://raw.githubusercontent.com/WinBooster/WinBooster_Scripts/refs/heads/main/files/%D0%9C%D0%B0%D0%BA%D1%80%D0%BE%D1%81.amc");
+					
+					if (!File.Exists(dir + @"\ScriptsMacros\Russian\StandardFile\Макрос.amc")) {
+						using (var sw  = new StreamWriter(File.Open(dir + @"\ScriptsMacros\Russian\StandardFile\Макрос.amc", FileMode.CreateNew), Encoding.GetEncoding("utf-32"))) {
+							sw.WriteLine(file);             
+						}
+					}
+					if (!File.Exists(dir + @"\ScriptsMacros\Russian\StandardFile\Макро.amc")) {
+						using (var sw  = new StreamWriter(File.Open(dir + @"\ScriptsMacros\Russian\StandardFile\Макро.amc", FileMode.CreateNew), Encoding.GetEncoding("utf-32"))) {
+							sw.WriteLine(file);             
+						}
+					}
 				}
-				if (!File.Exists(dir + @"\ScriptsMacros\Russian\StandardFile\Макро.amc")) {
-					File.Create(dir + @"\ScriptsMacros\Russian\StandardFile\Макро.amc").Close();
-				}
-				File.WriteAllBytes(dir + @"\ScriptsMacros\Russian\StandardFile\Макрос.amc", bytes);
-				File.WriteAllBytes(dir + @"\ScriptsMacros\Russian\StandardFile\Макро.amc", bytes);
 				return true;
 				
 				
