@@ -47,7 +47,6 @@ public class Script : IScript
 				}
 			}
 		}
-		Console.WriteLine("Count: " + lines.Count());
 		bool contains_static = hosts.ToArray().Any((a) => a.Key == "0.0.0.0" && a.Value == "static.brave.com");
 		bool contains_crlsets = hosts.ToArray().Any((a) => a.Key == "0.0.0.0" && a.Value == "crlsets.brave.com");
 		bool contains_core = hosts.ToArray().Any((a) => a.Key == "0.0.0.0" && a.Value == "brave-core-ext.s3.brave.com");
