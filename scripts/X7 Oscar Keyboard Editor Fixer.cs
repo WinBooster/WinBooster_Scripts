@@ -30,7 +30,7 @@ public class Script : IScript
 		return "X7 Oscar Keyboard Editor Fixer";
 	}
 	
-    public override void OnEnabled() 
+	public override void OnEnabled() 
 	{
 		
 	}
@@ -85,27 +85,8 @@ public class Script : IScript
 					}
 				}
 				return true;
-				
-				
 			}
 			return false;
-		}
-		
-		public static async Task<byte[]> DownloadFile(string url)
-		{
-			using (var client = new HttpClient())
-			{
-		
-				using (var result = await client.GetAsync(url))
-				{
-					if (result.IsSuccessStatusCode)
-					{
-						return await result.Content.ReadAsByteArrayAsync();
-					}
-		
-				}
-			}
-			return null;
 		}
 	}
 }
