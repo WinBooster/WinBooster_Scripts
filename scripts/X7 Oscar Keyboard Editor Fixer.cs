@@ -27,7 +27,7 @@ public class Script : IScript
 {
 	public override string GetScriptName() 
 	{
-		return "Oscar Keyboard Editor Fixer";
+		return "X7 Oscar Keyboard Editor Fixer";
 	}
 	
     public override void OnEnabled() 
@@ -89,6 +89,23 @@ public class Script : IScript
 				
 			}
 			return false;
+		}
+		
+		public static async Task<byte[]> DownloadFile(string url)
+		{
+			using (var client = new HttpClient())
+			{
+		
+				using (var result = await client.GetAsync(url))
+				{
+					if (result.IsSuccessStatusCode)
+					{
+						return await result.Content.ReadAsByteArrayAsync();
+					}
+		
+				}
+			}
+			return null;
 		}
 	}
 }
