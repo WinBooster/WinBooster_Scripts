@@ -47,7 +47,7 @@
       "description": "Fixes saving macros",
       "winbooster_version": "2.0.9.4",
       "type": "Error fixer",
-      "sha3": "0f65606ca9bedf494abd3a4c2adf53424a2109f86bc293e25ae372f0454f16a1",
+      "sha3": "1623a919920cc7d6c46f81620be8e12621e067de34544623663412f1af0b7d30",
       "url": "https://raw.githubusercontent.com/WinBooster/WinBooster_Scripts/refs/heads/main/scripts/Oscar%20Keyboard%20Editor%20Fixer.cs"
     }
   ]
