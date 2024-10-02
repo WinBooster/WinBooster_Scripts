@@ -11,7 +11,7 @@
       "url": "https://raw.githubusercontent.com/WinBooster/WinBooster_Scripts/main/scripts/LastActivity%20Cleaner.cs"
     },
     {
-      "name": "Maximum electrical circuit",
+      "name": "Maximum Electrical Circuit",
       "icon": "M213.607,56.578H0v120h213.607v-32.086h19.549V88.664h-19.549V56.578z M193.607,156.578H20v-80h173.607V156.578z\r\n\t M58.804,143.035h-24V90.121h24V143.035z M98.804,143.035h-24V90.121h24V143.035z M138.804,143.035h-24V90.121h24V143.035z\r\n\t M178.804,143.035h-24V90.121h24V143.035z",
       "version": "1.0.0",
       "description": "Set maximum electro scheme",
