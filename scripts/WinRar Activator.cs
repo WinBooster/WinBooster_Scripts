@@ -53,9 +53,9 @@ public class Script : IScript
 				
 				CheckBox checkBox = new CheckBox();
 				checkBox.IsChecked = disabled;
-				checkBox.Checked += (a, b) => {
+				checkBox.Checked += async (a, b) => {
 					using (WebClient wc = new WebClient()) {
-						wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/refs/heads/main/files/rarreg.key", @"C:\Program Files\WinRAR\rarreg.key");
+						wc.DownloadFileAsync(new Uri("https://github.com/WinBooster/WinBooster_Scripts/raw/refs/heads/main/files/rarreg.key"), @"C:\Program Files\WinRAR\rarreg.key");
 					}
 					
 					IsDisabled();
