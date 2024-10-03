@@ -27,7 +27,7 @@ public class Script : IScript
 {
 	public override string GetScriptName() 
 	{
-		return "WinRar Activator";
+		return "WinRaR Activator";
 	}
 	
 	public bool IsDisabled() {
@@ -69,7 +69,7 @@ public class Script : IScript
 				};
 				
 				TextBlock text = new TextBlock();
-				text.Text = "Activate WinRar";
+				text.Text = "Activate WinRaR";
 				
 				checkBox.Content = text;
 				
