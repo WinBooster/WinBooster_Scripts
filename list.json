@@ -37,7 +37,7 @@
       "description": "Makes selected processes unavailable for screenshots and recording",
       "winbooster_version": "2.0.8.9",
       "type": "Anti ScreenShare",
-      "sha3": "65d931a125d3f2c36e187d11c2a5e0e947be95eddb89d37067fcae6b29e8af50",
+      "sha3": "d6ff3802396891a0f72259eb4eaeb010b2761b63edaa51c5c83ef57afd193610",
       "url": "https://raw.githubusercontent.com/WinBooster/WinBooster_Scripts/main/scripts/Process%20Screen%20Protector.cs"
     },
     {
