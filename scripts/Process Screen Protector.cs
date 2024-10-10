@@ -30,15 +30,15 @@ public class Script : IScript
 		
     public override void OnEnabled() 
 	{
-		if (!Directory.Exists("C:\\Program Files\\WinBooster\\Libs"))
+		if (!Directory.Exists(WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs"))
 		{
-			Directory.CreateDirectory("C:\\Program Files\\WinBooster\\Libs");
+			Directory.CreateDirectory(WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs");
 		}
 		
 		using (WebClient wc = new WebClient())
 		{
-			if (!File.Exists("C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll")) {
-				wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/main/libs/Process%20Screen%20Protector/CaptureDisabler%20x64.dll", "C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll");
+			if (!File.Exists(WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs\\CaptureDisabler_x64.dll")) {
+				wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/main/libs/Process%20Screen%20Protector/CaptureDisabler%20x64.dll", WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs\\CaptureDisabler_x64.dll");
 			}
 		}
 		
@@ -98,7 +98,7 @@ public class Script : IScript
 								if (x64) {
 									LoadLibraryInjection injector = new LoadLibraryInjection(process, ExecutionType.CreateThread, options);
 									
-									injector.InjectImage("C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll");
+									injector.InjectImage(WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs\\CaptureDisabler_x64.dll");
 									GrowlInfo growl = new GrowlInfo
 									{
 										Message = "Success hided process: " + process_name,
