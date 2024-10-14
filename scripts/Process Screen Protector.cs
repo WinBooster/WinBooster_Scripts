@@ -28,7 +28,7 @@ public class Script : IScript
 	}
 
 
-    	public override void OnEnabled() 
+    public override void OnEnabled() 
 	{
 		if (!Directory.Exists("C:\\Program Files\\WinBooster\\Libs"))
 		{
