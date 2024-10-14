@@ -27,22 +27,22 @@ public class Script : IScript
 		return "Process Screen Protector";
 	}
 
-		
-    public override void OnEnabled() 
+
+    	public override void OnEnabled() 
 	{
-		if (!Directory.Exists(WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs"))
+		if (!Directory.Exists("C:\\Program Files\\WinBooster\\Libs"))
 		{
-			Directory.CreateDirectory(WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs");
+			Directory.CreateDirectory("C:\\Program Files\\WinBooster\\Libs");
 		}
-		
+
 		using (WebClient wc = new WebClient())
 		{
-			if (!File.Exists(WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs\\CaptureDisabler_x64.dll")) {
-				wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/main/libs/Process%20Screen%20Protector/CaptureDisabler%20x64.dll", WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs\\CaptureDisabler_x64.dll");
+			if (!File.Exists("C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll")) {
+				wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/main/libs/Process%20Screen%20Protector/CaptureDisabler%20x64.dll", "C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll");
 			}
 		}
-		
-		
+
+
 		AntiScreenShareForm antiScreenForm = App.auth.main.antiScreenForm;
 		antiScreenForm.Dispatcher.Invoke(() =>
 		{
@@ -98,7 +98,7 @@ public class Script : IScript
 								if (x64) {
 									LoadLibraryInjection injector = new LoadLibraryInjection(process, ExecutionType.CreateThread, options);
 									
-									injector.InjectImage(WinBoosterUtils.GetWinboosterDirectory().FullName + "\\Libs\\CaptureDisabler_x64.dll");
+									injector.InjectImage("C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll");
 									GrowlInfo growl = new GrowlInfo
 									{
 										Message = "Success hided process: " + process_name,
