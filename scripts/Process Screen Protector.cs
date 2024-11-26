@@ -161,7 +161,7 @@ public class Script : IScript
 									injector.InjectImage("C:\\Program Files\\WinBooster\\Libs\\CaptureEnabler_x64.dll");
 									GrowlInfo growl = new GrowlInfo
 									{
-										Message = "Success hided process: " + process_name,
+										Message = "Success unhided process: " + process_name,
 									};
 									Growl.InfoGlobal(growl);
 								}
