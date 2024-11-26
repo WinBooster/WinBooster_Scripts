@@ -47,7 +47,7 @@
       "description": "Fixes saving macros",
       "winbooster_version": "2.0.9.4",
       "type": "Error fixer",
-      "sha3": "cf712a4834831c65a174bcd884248165cbaf55e1ca3a3ec5d6fa2f13d50dd0bf",
+      "sha3": "1623a919920cc7d6c46f81620be8e12621e067de34544623663412f1af0b7d30",
       "url": "https://raw.githubusercontent.com/WinBooster/WinBooster_Scripts/refs/heads/main/scripts/Oscar%20Keyboard%20Editor%20Fixer.cs"
     },
     {
@@ -57,7 +57,7 @@
       "description": "Activate WinRar Program",
       "winbooster_version": "2.0.9.6",
       "type": "Tweaks",
-      "sha3": "9c88e8f08378faedaaf8bb6912ce77cfd069c50366e0df80288251cfbc477ef0",
+      "sha3": "ed44bb2f2f3b49bf26bac74b86d9f66beb897da38b89c103b82dcec3fc3e2fd4",
       "url": "https://raw.githubusercontent.com/WinBooster/WinBooster_Scripts/refs/heads/main/scripts/WinRar%20Activator.cs"
     }
   ]
