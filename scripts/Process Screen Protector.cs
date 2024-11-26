@@ -40,6 +40,9 @@ public class Script : IScript
 			if (!File.Exists("C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll")) {
 				wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/main/libs/Process%20Screen%20Protector/CaptureDisabler%20x64.dll", "C:\\Program Files\\WinBooster\\Libs\\CaptureDisabler_x64.dll");
 			}
+			if (!File.Exists("C:\\Program Files\\WinBooster\\Libs\\CaptureEnabler_x64.dll")) {
+				wc.DownloadFile("https://github.com/WinBooster/WinBooster_Scripts/raw/main/libs/Process%20Screen%20Protector/CaptureEnabler%20x64.dll", "C:\\Program Files\\WinBooster\\Libs\\CaptureEnabler_x64.dll");
+			}
 		}
 
 
@@ -73,7 +76,7 @@ public class Script : IScript
 				text.SetValue(Grid.RowProperty, 0);
 				text.SetValue(Grid.ColumnProperty, 0);
 				text.SetValue(HandyControl.Controls.InfoElement.PlaceholderProperty, "Process name");
-				text.Width = 217;
+				text.Width = 147;
 				text.HorizontalAlignment = HorizontalAlignment.Left;
 				
 				Button hide = new Button();
@@ -81,6 +84,11 @@ public class Script : IScript
 				hide.SetValue(Grid.RowProperty, 0);
 				hide.SetValue(Grid.ColumnProperty, 1);
 				hide.HorizontalAlignment = HorizontalAlignment.Right;
+				
+				Thickness margin = hide.Margin;
+				margin.Right = 75;
+				hide.Margin = margin;
+				
 				TextBlock button_text = new TextBlock();
 				button_text.Text = "Hide";
 				
@@ -132,8 +140,61 @@ public class Script : IScript
 					}
 				});
 				
+				Button unhide = new Button();
+				unhide.Margin = new Thickness(0, 0, 7, 0);
+				unhide.SetValue(Grid.RowProperty, 0);
+				unhide.SetValue(Grid.ColumnProperty, 1);
+				unhide.HorizontalAlignment = HorizontalAlignment.Right;
+				TextBlock button_text2 = new TextBlock();
+				button_text2.Text = "UnHide";
+				unhide.Content = button_text2;
+				unhide.Click += ((a, b) => {
+					string process_name = text.Text;
+					var processes = System.Diagnostics.Process.GetProcessesByName(process_name);
+					foreach (System.Diagnostics.Process process in processes) {
+						if (process.MainWindowHandle != IntPtr.Zero) {
+							bool x64 = process.Is64Bit();
+							try {
+								if (x64) {
+									LoadLibraryInjection injector = new LoadLibraryInjection(process, ExecutionType.CreateThread, options);
+									
+									injector.InjectImage("C:\\Program Files\\WinBooster\\Libs\\CaptureEnabler_x64.dll");
+									GrowlInfo growl = new GrowlInfo
+									{
+										Message = "Success hided process: " + process_name,
+									};
+									Growl.InfoGlobal(growl);
+								}
+								else {
+									GrowlInfo growl = new GrowlInfo
+									{
+										Message = "x32 Processes not support",
+										ShowDateTime = true,
+										IconKey = "WarningGeometry",
+										IconBrushKey = "WarningBrush",
+										IsCustom = true
+									};
+									Growl.InfoGlobal(growl);
+								}
+							}
+							catch { 
+								GrowlInfo growl = new GrowlInfo
+								{
+									Message = "Error hide process: " + process_name,
+									ShowDateTime = true,
+									IconKey = "WarningGeometry",
+									IconBrushKey = "WarningBrush",
+									IsCustom = true
+								};
+								Growl.InfoGlobal(growl);
+							}
+						}
+					}
+				});
+				
 				grid.Children.Add(text);
 				grid.Children.Add(hide);
+				grid.Children.Add(unhide);
 				
 				stack.Children.Add(grid);
 				
